@@ -24,6 +24,8 @@ func main() {
 			os.Exit(1)
 		}
 
+		fmt.Printf("HTTP STATUS: %d\n", resp.StatusCode)
+
 		_, err = io.Copy(os.Stdout, resp.Body)
 		resp.Body.Close()
 
