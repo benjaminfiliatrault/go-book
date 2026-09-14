@@ -5,11 +5,19 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 )
 
 func main() {
 	for _, url := range os.Args[1:] {
-		resp, err := http.Get(url)
+
+		normalizedUrl := url
+
+		if !strings.HasPrefix(url, "http://") {
+			normalizedUrl = "https://" + url
+		}
+
+		resp, err := http.Get(normalizedUrl)
 
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "fetch: %v\n", err)
