@@ -16,14 +16,12 @@ func main() {
 			os.Exit(1)
 		}
 
-		b, err := io.ReadAll(resp.Body)
+		_, err = io.Copy(os.Stdout, resp.Body)
 		resp.Body.Close()
 
 		if err != nil {
 			fmt.Fprintf(os.Stderr, "fetch: reading %s: %v\n", url, err)
 			os.Exit(1)
 		}
-
-		fmt.Printf("%s", b)
 	}
 }
